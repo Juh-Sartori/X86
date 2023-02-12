@@ -1,0 +1,50 @@
+#Juliana Sartori
+func:
+   pushq %rbp
+   
+    movq %rsp,%rbp                                                                       
+    movq 12(%rbp), %rax                                                                   
+    subq 12(%rbp), %rsp                                                                     
+
+######IFL25#######
+    movq 8(%rbp),%rax                                                                       
+    cmpq 16(%rbp),%rax                                                                      
+    jg .Lelse
+    subq $8,%rsp                                                                            
+    movq -4(%rbp),%rax                                                                      
+    addl 12(%rbp),%rax                                                                      
+    movq %rax, -4(%rbp)                                                                     
+    jmp .Lif
+    Lelse:
+#####FORL30#########    
+        movq %rbp,%ecx                                                                      
+        addl $16,%ecx                                                                       
+        
+        movq 12(%rbp),%rax                                                                  
+        subq $1,%rax                                                                        
+        movq %rax,-8(%rbp)                                                                  
+        .Lfor:
+            cmpq $0, -8(%rbp)
+            jgl .Lfor 
+######IFL32######                
+               movq 8(%rbp),%rax
+               cmpq 0(%ecx),%rax
+               jng .Ldif
+                    movq -4(%rbp),%rax                                                      
+                    addl 12(%rbp),%rax                                                      
+                    subq -8(%rbp),%rax                                                      
+                    subq $1,%rax                                                            
+                    movq %rax,-4(%rbp)                                                      
+                    jmp .Lfor                                                             
+               Lendif:         
+            subq $1, -8(%rbp)
+        jmp .Lfor
+        Lendfor:
+    Lendif:
+
+    movq -4(%rbp), %rax    
+    movq %rbp,%rsp
+    movq %rbp,%rsp 
+    popq %rbp
+
+ret
